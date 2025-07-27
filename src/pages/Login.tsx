@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "lucide-react";
 export const Login = () => {
   const [userType, setUserType] = useState<"vendor" | "supplier">("vendor");
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     emailOrMobile: "",
     password: "",
@@ -18,10 +19,18 @@ export const Login = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
     console.log("Login:", { userType, ...formData });
-    // Handle login
+    
+    // Simulate login
+    setTimeout(() => {
+      setIsSubmitting(false);
+      alert("Login successful!");
+    }, 1000);
   };
 
   return (
@@ -105,18 +114,11 @@ export const Login = () => {
           <button
             type="submit"
             className="trust-button-primary w-full"
+            disabled={isSubmitting}
           >
-            Sign In
+            {isSubmitting ? "Signing In..." : "Sign In"}
           </button>
 
-          <div className="text-center">
-            <button
-              type="button"
-              className="text-sm text-primary hover:text-primary/80"
-            >
-              Login with OTP instead
-            </button>
-          </div>
         </form>
 
         <div className="mt-6 text-center">

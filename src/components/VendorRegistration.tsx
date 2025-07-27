@@ -3,10 +3,10 @@ import { Upload, Eye, EyeOff } from "lucide-react";
 
 export const VendorRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     mobile: "",
-    otp: "",
     email: "",
     password: "",
     shopName: "",
@@ -65,10 +65,18 @@ export const VendorRegistration = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
     console.log("Vendor Registration:", formData, files);
-    // Handle form submission
+    
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      alert("Registration submitted successfully!");
+    }, 1000);
   };
 
   return (
@@ -102,17 +110,6 @@ export const VendorRegistration = () => {
                 className="trust-input"
                 required
                 placeholder="Enter mobile number"
-              />
-            </div>
-            <div>
-              <label className="trust-label">OTP Verification</label>
-              <input
-                type="text"
-                name="otp"
-                value={formData.otp}
-                onChange={handleInputChange}
-                className="trust-input"
-                placeholder="Enter OTP"
               />
             </div>
             <div>
@@ -346,8 +343,9 @@ export const VendorRegistration = () => {
         <button
           type="submit"
           className="trust-button-primary w-full"
+          disabled={isSubmitting}
         >
-          Register as Vendor
+          {isSubmitting ? "Submitting..." : "Register as Vendor"}
         </button>
       </form>
     </div>

@@ -3,11 +3,11 @@ import { Upload, Eye, EyeOff, Plus, X } from "lucide-react";
 
 export const SupplierRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [deliveryCities, setDeliveryCities] = useState<string[]>([""]);
   const [formData, setFormData] = useState({
     fullName: "",
     mobile: "",
-    otp: "",
     email: "",
     password: "",
     companyName: "",
@@ -52,10 +52,18 @@ export const SupplierRegistration = () => {
     setDeliveryCities(newCities);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
     console.log("Supplier Registration:", { ...formData, deliveryCities, files });
-    // Handle form submission
+    
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      alert("Registration submitted successfully!");
+    }, 1000);
   };
 
   return (
@@ -89,17 +97,6 @@ export const SupplierRegistration = () => {
                 className="trust-input"
                 required
                 placeholder="Enter mobile number"
-              />
-            </div>
-            <div>
-              <label className="trust-label">OTP Verification</label>
-              <input
-                type="text"
-                name="otp"
-                value={formData.otp}
-                onChange={handleInputChange}
-                className="trust-input"
-                placeholder="Enter OTP"
               />
             </div>
             <div>
@@ -279,8 +276,9 @@ export const SupplierRegistration = () => {
         <button
           type="submit"
           className="trust-button-primary w-full"
+          disabled={isSubmitting}
         >
-          Register as Supplier
+          {isSubmitting ? "Submitting..." : "Register as Supplier"}
         </button>
       </form>
     </div>

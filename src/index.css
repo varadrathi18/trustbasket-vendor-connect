@@ -1,40 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* TrustBasket Design System - Green Theme */
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 140 6% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 140 6% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 140 6% 13%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 122 36% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 120 7% 96%;
+    --secondary-foreground: 140 6% 13%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 120 7% 96%;
+    --muted-foreground: 120 4% 48%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 120 60% 95%;
+    --accent-foreground: 122 36% 35%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --success: 122 39% 49%;
+    --success-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --warning: 35 91% 60%;
+    --warning-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 13% 91%;
+    --input: 120 13% 91%;
+    --ring: 122 36% 35%;
 
     --radius: 0.5rem;
 
@@ -100,6 +106,69 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+  }
+}
+
+@layer components {
+  /* TrustBasket Component Styles */
+  .trust-card {
+    @apply bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200;
+  }
+
+  .trust-button-primary {
+    @apply bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors duration-200;
+  }
+
+  .trust-button-secondary {
+    @apply bg-secondary text-secondary-foreground border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors duration-200;
+  }
+
+  .trust-input {
+    @apply w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+
+  .trust-label {
+    @apply text-sm font-medium text-foreground mb-2 block;
+  }
+
+  .trust-hero-gradient {
+    @apply bg-gradient-to-br from-primary/10 via-accent/50 to-success/10;
+  }
+
+  .trust-product-card {
+    @apply bg-card rounded-xl border border-border p-4 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-200 cursor-pointer;
+  }
+
+  .trust-nav-link {
+    @apply text-foreground hover:text-primary transition-colors duration-200 font-medium;
+  }
+
+  .trust-success-text {
+    @apply text-success font-medium;
+  }
+
+  .trust-warning-text {
+    @apply text-warning font-medium;
+  }
+
+  .trust-error-text {
+    @apply text-destructive font-medium;
+  }
+
+  .trust-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .trust-badge-success {
+    @apply trust-badge bg-success/10 text-success;
+  }
+
+  .trust-badge-warning {
+    @apply trust-badge bg-warning/10 text-warning;
+  }
+
+  .trust-badge-error {
+    @apply trust-badge bg-destructive/10 text-destructive;
   }
 }

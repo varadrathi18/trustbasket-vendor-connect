@@ -1,10 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, User, Menu, X } from "lucide-react";
+import { ShoppingCart, User, Menu, X, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, logout, isAuthenticated } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -56,18 +58,39 @@ export const Navbar = () => {
                 3
               </span>
             </button>
-            <Link
-              to="/login"
-              className="trust-button-secondary"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              className="trust-button-primary"
-            >
-              Register
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to={user?.type === 'vendor' ? '/vendor-dashboard' : '/supplier-dashboard'}
+                  className="trust-button-secondary flex items-center space-x-2"
+                >
+                  <User size={18} />
+                  <span>Dashboard</span>
+                </Link>
+                <button
+                  onClick={logout}
+                  className="trust-button-primary flex items-center space-x-2"
+                >
+                  <LogOut size={18} />
+                  <span>Logout</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="trust-button-secondary"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="trust-button-primary"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -112,20 +135,45 @@ export const Navbar = () => {
                 Help
               </Link>
               <div className="flex flex-col space-y-2 pt-4">
-                <Link
-                  to="/login"
-                  className="trust-button-secondary text-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="trust-button-primary text-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Register
-                </Link>
+                {isAuthenticated ? (
+                  <>
+                    <Link
+                      to={user?.type === 'vendor' ? '/vendor-dashboard' : '/supplier-dashboard'}
+                      className="trust-button-secondary text-center flex items-center justify-center space-x-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <User size={18} />
+                      <span>Dashboard</span>
+                    </Link>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setIsMenuOpen(false);
+                      }}
+                      className="trust-button-primary text-center flex items-center justify-center space-x-2"
+                    >
+                      <LogOut size={18} />
+                      <span>Logout</span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="/login"
+                      className="trust-button-secondary text-center"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      to="/register"
+                      className="trust-button-primary text-center"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Register
+                    </Link>
+                  </>
+                )}
               </div>
             </nav>
           </div>

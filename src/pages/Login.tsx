@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [userType, setUserType] = useState<"vendor" | "supplier">("vendor");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,6 +31,13 @@ export const Login = () => {
     
     // Simulate login
     setTimeout(() => {
+      const userData = {
+        id: "user123",
+        type: userType,
+        email: formData.emailOrMobile,
+        name: userType === "vendor" ? "John Vendor" : "Jane Supplier"
+      };
+      login(userData);
       setIsSubmitting(false);
       navigate("/");
     }, 1000);

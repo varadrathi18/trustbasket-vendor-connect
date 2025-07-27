@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [userType, setUserType] = useState<"vendor" | "supplier">("vendor");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,7 +30,7 @@ export const Login = () => {
     // Simulate login
     setTimeout(() => {
       setIsSubmitting(false);
-      alert("Login successful!");
+      navigate("/");
     }, 1000);
   };
 
